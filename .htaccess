@@ -1,0 +1,39 @@
+RewriteEngine On
+RewriteBase /
+
+
+#RewriteCond %{HTTP_HOST} ^www\.r2\.upsale-production\.ru$ [NC]
+#RewriteRule ^(.*)$ http://r2.upsale-production.ru/$1 [R=301,L]
+
+
+#RewriteRule ^sait-vizitka-sozdanie.htm$  sozdanie-saitov/sozdanie-saita-vizitki.html [R=301,L]
+
+AddDefaultCharset utf-8
+
+
+RewriteRule ^index.html  / [R=301,L]
+RewriteRule ^index.htm  / [R=301,L] 
+
+## админка
+RewriteRule ^rss/$    modul/rss/news.php [L]
+RewriteRule ^ua/rss/$    modul/rss/news.php [L]
+
+RewriteRule ^admin/$    admin/index.php [L]
+
+## перенаправляем все на index.php кроме css, js, count, admin, img, images и ajax - запровсов 
+RewriteCond %{REQUEST_URI} !(css|js|admin|img|image|images)
+RewriteCond %{REQUEST_URI} !timthumb.php
+RewriteCond %{REQUEST_URI} !robots.txt
+RewriteCond %{REQUEST_URI} !sitemap(.*).xml
+RewriteCond %{REQUEST_URI} !favicon.ico
+RewriteCond %{REQUEST_URI} !modul/shop/ajax
+RewriteCond %{REQUEST_URI} !modul/rss/
+RewriteCond %{REQUEST_URI} !modul/opros/ajax/
+RewriteCond %{REQUEST_URI} !upload
+RewriteCond %{REQUEST_URI} !auto_mail.php$
+RewriteCond %{REQUEST_URI} !auto_en.php$
+RewriteCond %{REQUEST_URI} !first.php$
+
+RewriteRule ^.*$ index.php [L]
+ 
+ErrorDocument 404 /index.php#?error=404
